@@ -1,0 +1,76 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+}
+
+.header {
+    position: fixed;
+    height: 16em;
+    width: 100%;
+    background-color: #58595B;
+
+    padding: 50px;
+
+    color: rgb(255,255,255);
+
+}
+
+.logo {
+
+}
+
+.total-score-cont {
+    float:right;
+
+}
+
+.ts-number {
+    font-size: 4em;
+    display:block;
+    text-align:right;
+
+}
+
+.ts-text {
+    float:right;
+    text-align: right;
+}
+
+
+
+.scorecard {
+    padding-top: 16em;
+    background-color: #E6E7E8;
+
+}
+
+.hole-row {
+    display:block;
+    height: 10em;
+    background-color: #E6E7E8;
+
+    padding: 1em 3em;
+}
+
+.even-row {
+    background-color: #F1F2F2;
+}
+
+.h1-row {
+
+}
+
+
+.hole-name-cont {
+    float:left;
+    background-color: red;
+}
+
+.hole-score-cont {
+    float: right;
+    background-color: blue;
+}
