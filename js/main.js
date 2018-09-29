@@ -2,12 +2,18 @@
 // v2.0.1
 
 $( document ).ready(function() {
-    console.log( "yoyoyo" );
+  console.log( "yoyoyo" );
+
+  /* Theoretically, this hides the address bar on mobile
+  document.body.requestFullscreen();
+  */
 
 });
 
-var holeScore;
-var totalScore = 0;
+var holeScore;  // Holds the score of the hole during its editing
+var totalScore = 0; // Holds the total course score
+
+var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 
 
 $( ".hole-row" ).click(function() {
