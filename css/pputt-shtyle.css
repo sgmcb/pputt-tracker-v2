@@ -23,6 +23,7 @@ body {
   display:block;
   float:left;
   height: 6em;
+  margin-top:-0.15em;
   
   fill: #FFFFFF;
   
@@ -88,5 +89,17 @@ body {
 
 .hole-score-cont {
     float: right;
-    background-color: blue;
+}
+
+.hole-score {
+  font-size: 6em;
+  line-height:1em;
+}
+
+/* Init styling 
+   A class to be initially applied and removed by JS as users update their scores...
+*/
+
+.hole-row.init {
+  color: #999;
 }
