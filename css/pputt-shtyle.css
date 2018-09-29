@@ -63,10 +63,10 @@ body {
 
 .hole-row {
     display:block;
-    height: 10em;
+    height: 5em;
     background-color: #E6E7E8;
 
-    padding: 2em;
+    padding: 1em;
 }
 
 .even-row {
@@ -83,7 +83,7 @@ body {
 }
 
 .hole-name {
-  font-size: 6em;
+  font-size: 3em;
   line-height:1em;
 }
 
@@ -92,7 +92,7 @@ body {
 }
 
 .hole-score {
-  font-size: 6em;
+  font-size: 3em;
   line-height:1em;
 }
 
