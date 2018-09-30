@@ -21,7 +21,7 @@ var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that 
 
 
 // On click/tap
-$( ".hole-row" ).click(function() {
+$( ".hole-row.active" ).click(function() {
   editingHole = $(this).attr("id");
   console.log("Editing hole " + editingHole);
   
