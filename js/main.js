@@ -12,20 +12,29 @@ $( document ).ready(function() {
 
 var holeScore;  // Holds the score of the hole during its editing
 var totalScore = 0; // Holds the total course score
+var editingHole;
 
 var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 
+
+
+
+
 // On click/tap
 $( ".hole-row" ).click(function() {
+  editingHole = $(this).attr("id");
+  console.log("Editing hole " + editingHole);
+  
+  
   holeScore = $( this ).find(".hole-score").html();
   
-  // TODO: Add something to catch people when they hit 6 strokes?
+  
+  
+  // What to do if the score is at 6...  
   if(holeScore==6) {
-    console.log("Score cannot exceed 6.")
+    console.log("Score cannot exceed 6.");
     holeScore=1;
     totalScore = totalScore - 5;
-    
-    
   }
   
   // Regular score
@@ -39,18 +48,30 @@ $( ".hole-row" ).click(function() {
   
 
   
-  // Increment the score here
-  $( this ).find(".hole-score").html(holeScore);
+  // Increment the total score here
+  //$( this ).find(".hole-score").html(holeScore);
+  $( this ).find(".h"+editingHole).html(holeScore);
   
   // Increment the total score
   $(".ts-number").html(totalScore);
-  
   
   
   console.log("score click" + holeScore);
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+// Try to prevent reload
 window.onbeforeunload=function() { 
   return 'Please save'
 }
