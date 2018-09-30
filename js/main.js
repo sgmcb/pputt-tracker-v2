@@ -20,8 +20,24 @@ $( ".hole-row" ).click(function() {
   holeScore = $( this ).find(".hole-score").html();
   
   // TODO: Add something to catch people when they hit 6 strokes?
-  holeScore++;
-  totalScore++;
+  if(holeScore==6) {
+    console.log("Score cannot exceed 6.")
+    holeScore=1;
+    totalScore = totalScore - 5;
+    
+    
+  }
+  
+  // Regular score
+  else {
+    holeScore++;
+    totalScore++;    
+  }
+  
+  
+  
+  
+
   
   // Increment the score here
   $( this ).find(".hole-score").html(holeScore);
