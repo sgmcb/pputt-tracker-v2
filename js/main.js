@@ -15,7 +15,7 @@ var totalScore = 0; // Holds the total course score
 
 var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 
-
+// On click/tap
 $( ".hole-row" ).click(function() {
   holeScore = $( this ).find(".hole-score").html();
   
@@ -49,3 +49,8 @@ $( ".hole-row" ).click(function() {
   
   console.log("score click" + holeScore);
 });
+
+
+window.onbeforeunload=function() { 
+  return 'Please save'
+}
