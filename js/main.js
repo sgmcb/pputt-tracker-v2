@@ -20,7 +20,7 @@ var posWindowW = 2;  // How large of a window do we leave editable around the es
 
 
 // On click/tap
-$( ".hole-row.active" ).click(function() {
+$( ".hole-row" ).click(function() {
   
   // Which hole are we editing with this click?
   editingHole = $(this).attr("id");
