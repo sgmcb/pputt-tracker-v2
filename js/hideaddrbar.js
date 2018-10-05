@@ -8,6 +8,7 @@
   
 */
 
+console.log("HideAddrBar running");
 
 (function( win ){
 	var doc = win.document;
