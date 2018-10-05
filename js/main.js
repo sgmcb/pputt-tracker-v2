@@ -1,9 +1,42 @@
 // (C) 2018 High Quality Ideas LLC
 // v2.0.1
 
+
+/*
+function toggleFullScreen() {
+
+  var doc = window.document;
+  var docEl = doc.documentElement;
+  
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(docEl);
+  }
+  else {
+    cancelFullScreen.call(doc);
+  }
+};
+*/
+
+function goFS() {
+  var doc = window.document;
+  var docEl = doc.documentElement;
+  
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  
+  requestFullScreen.call(docEl);
+  
+};
+
+
+
 $( document ).ready(function() {
   console.log( "yoyoyo" );
-
+  
+  
+  
   /* Theoretically, this hides the address bar on mobile
   document.body.requestFullscreen();
   */
@@ -17,6 +50,12 @@ var editingHole;
 var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 var posWindowW = 2;  // How large of a window do we leave editable around the estimated position?
 
+
+
+$(".header").click(function() {
+  goFS();
+  
+})
 
 
 // On click/tap
@@ -67,10 +106,14 @@ $( ".hole-row" ).click(function() {
 
 
 
+/*
 
+var hammertime = new Hammer(myElement, myOptions);
+hammertime.on('pan', function(ev) {
+	console.log(ev);
+});
 
-
-
+*/
 
 
 
@@ -78,5 +121,6 @@ $( ".hole-row" ).click(function() {
 
 // Try to prevent reload
 window.onbeforeunload=function() { 
-  return 'Please save'
+  alert('Are you sure you want to leave?');
+  return 'Please save your scores'
 }
