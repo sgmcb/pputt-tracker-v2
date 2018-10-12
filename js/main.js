@@ -6,8 +6,7 @@
 $( document ).ready(function() {
   console.log( "yoyoyo" );
   
-  //window.localStorage.clear();
-  //console.log("window.localStorage cleared");
+  
   
 
 });
@@ -74,6 +73,11 @@ $( ".hole-row" ).click(function() {
   
   $(".ts-number").html(totalScore);                   // Total score
   window.localStorage.setItem('totalScore',totalScore);
+  
+  
+  
+  
+  
 });
 
 
@@ -87,9 +91,6 @@ hammertime.on('pan', function(ev) {
 });
 
 */
-
-
-
 
 
 // Try to prevent reload
