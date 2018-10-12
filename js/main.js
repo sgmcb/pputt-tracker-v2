@@ -2,25 +2,6 @@
 // v2.0.1
 
 
-/*
-function toggleFullScreen() {
-
-  var doc = window.document;
-  var docEl = doc.documentElement;
-  
-  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-    requestFullScreen.call(docEl);
-  }
-  else {
-    cancelFullScreen.call(doc);
-  }
-};
-*/
-
-
 
 $( document ).ready(function() {
   console.log( "yoyoyo" );
@@ -28,10 +9,6 @@ $( document ).ready(function() {
   //window.localStorage.clear();
   //console.log("window.localStorage cleared");
   
-  
-  /* Theoretically, this hides the address bar on mobile
-  document.body.requestFullscreen();
-  */
 
 });
 
