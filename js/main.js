@@ -20,12 +20,6 @@ var posWindowW = 2;  // How large of a window do we leave editable around the es
 
 
 
-$(".header").click(function() {
-  goFS();
-  
-})
-
-
 // On click/tap
 $( ".hole-row" ).click(function() {
   
