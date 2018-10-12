@@ -20,21 +20,13 @@ function toggleFullScreen() {
 };
 */
 
-function goFS() {
-  var doc = window.document;
-  var docEl = doc.documentElement;
-  
-  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-  
-  requestFullScreen.call(docEl);
-  
-};
-
 
 
 $( document ).ready(function() {
   console.log( "yoyoyo" );
   
+  //window.localStorage.clear();
+  //console.log("window.localStorage cleared");
   
   
   /* Theoretically, this hides the address bar on mobile
@@ -63,7 +55,7 @@ $( ".hole-row" ).click(function() {
   
   // Which hole are we editing with this click?
   editingHole = $(this).attr("id");
-  console.log("Editing hole " + editingHole);
+  //console.log("Editing hole: " + editingHole);
   
   // COURSE POSITION UPDATES
   
@@ -87,6 +79,8 @@ $( ".hole-row" ).click(function() {
     console.log("Score cannot exceed 6.");
     holeScore=1;
     totalScore = totalScore - 5;
+    
+
   }
   
   // Score<6
@@ -94,13 +88,15 @@ $( ".hole-row" ).click(function() {
     holeScore++;
     totalScore++;    
   }
+  
+  console.log("Update: Hole=" + editingHole + " // Score=" + holeScore);
    
   // Update score fields
   $( this ).find(".h"+editingHole).html(holeScore);   // Hole score
+  window.localStorage.setItem(editingHole, holeScore);
+  
   $(".ts-number").html(totalScore);                   // Total score
-  
-  
-  console.log("score click" + holeScore);
+  window.localStorage.setItem('totalScore',totalScore);
 });
 
 
@@ -120,7 +116,10 @@ hammertime.on('pan', function(ev) {
 
 
 // Try to prevent reload
+// NB: Appears to have no effect on mobile browsers
+/* // NOT USING DURING DEV B/C IT SLOWS ME DOWN — McB
 window.onbeforeunload=function() { 
   alert('Are you sure you want to leave?');
   return 'Please save your scores'
 }
+*/
