@@ -3,13 +3,7 @@
 
 
 
-$( document ).ready(function() {
-  console.log( "yoyoyo" );
-  
-  
-  
 
-});
 
 var holeScore;  // Holds the score of the hole during its editing
 var totalScore = 0; // Holds the total course score
@@ -18,9 +12,67 @@ var editingHole;
 var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 var posWindowW = 2;  // How large of a window do we leave editable around the estimated position?
 
+// DOCUMENT READY
+$( document ).ready(function() {
+  console.log( "yoyoyo" );
+  
+  // Check if this is a new game
+  if (isNewGame()) {
+    console.log("Let the games begin!");
+    var gameStart = new Date();
+    gameStart = Date.now();
+    var gameStartDay = gameStart.getDate();
+    console.log("Current Date.now=" + gameStartDay);
+    localStorage.setItem('gameStartTime',gameStartDay);
+  }
+  else {
+    loadScoresFromStorage();
+  }
+
+  
+  
+  
+  
+  
+
+});
 
 
-// On click/tap
+// NEW GAME DETECTION
+// For now, simple timestamp comparison
+// TODO: Default state should be true? Only false IFF it detects valid previous scores...
+
+function isNewGame(){
+  if (!window.localStorage.getItem('gameStart') ) {
+    console.log("No previous game start in storage.");
+    return true;
+  }
+  
+  
+  
+  
+  
+  
+  // if no new-game condition is met
+  return false;
+  
+  
+
+  
+}
+
+
+// Loading existing scores...
+
+function loadScoresFromStorage() {
+  var ls_totalScore = window.localStorage.getItem('totalScore',totalScore);
+  $(".ts-number").html(ls_totalScore);                   // Total score
+}
+
+
+
+// SCORE TRACKING
+// On click/tap of any row...
 $( ".hole-row" ).click(function() {
   
   // Which hole are we editing with this click?
@@ -75,6 +127,16 @@ $( ".hole-row" ).click(function() {
 });
 
 
+
+
+// DEBUG ONLY: Clear Local Storage on Header Click
+
+
+$(".header").click(function() {
+  window.localStorage.clear();
+  console.log("localStorage cleared");
+  
+});
 
 
 /*
