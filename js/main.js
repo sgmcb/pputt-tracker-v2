@@ -3,28 +3,41 @@
 
 
 
+// CONFIG VALUES
+var localStorageTimeout = 6;    // the number of hours (from game start) after which the localStorage will clear itself
 
+var posWindowWidth = 2;  // How large of a window do we leave editable around the estimated position?
+
+// ----
 
 var holeScore;  // Holds the score of the hole during its editing
 var totalScore = 0; // Holds the total course score
 var editingHole;
 
 var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
-var posWindowW = 2;  // How large of a window do we leave editable around the estimated position?
+
+
+
+var nowSecs;
 
 // DOCUMENT READY
 $( document ).ready(function() {
   console.log( "yoyoyo" );
+
+  var now = new Date();
+  nowSecs = now.getTime()/1000;
+  console.log("Current time is: " + nowSecs +" (in epoch-seconds)");
   
   // Check if this is a new game
-  if (isNewGame()) {
+  if ( isNewGame(nowSecs) ) {
     console.log("Let the games begin!");
-    var gameStart = new Date();
-    gameStart = Date.now();
-    var gameStartDay = gameStart.getDate();
-    console.log("Current Date.now=" + gameStartDay);
-    localStorage.setItem('gameStartTime',gameStartDay);
+    localStorage.setItem('prevGameStart',nowSecs);
+    
+    setTotalScore(0);
+    
+    
   }
+  
   else {
     loadScoresFromStorage();
   }
@@ -42,43 +55,52 @@ $( document ).ready(function() {
 // For now, simple timestamp comparison
 // TODO: Default state should be true? Only false IFF it detects valid previous scores...
 
-function isNewGame(){
-  if (!window.localStorage.getItem('gameStart') ) {
-    console.log("No previous game start in storage.");
-    return true;
+function isNewGame(nowSecs) {
+  
+  var prevGameStart = window.localStorage.getItem('prevGameStart');
+  console.log("Last game started at: " + prevGameStart);
+  var timeSince = nowSecs - prevGameStart; // calculate the time since we last started a game on this device (in seconds)
+  var timeoutInSecs = (localStorageTimeout*60*60);
+  
+  console.log("Time since last game start=" + timeSince + " (seconds)");
+  
+  if( timeSince < timeoutInSecs ) {
+    return false;
   }
   
-  
-  
-  
-  
-  
-  // if no new-game condition is met
-  return false;
-  
-  
-
-  
+  else {
+    window.localStorage.clear();
+    console.log("localStorage cleared");
+      
+    return true;    
+  }
 }
 
 
 // Loading existing scores...
 
 function loadScoresFromStorage() {
+  
+  // Load and update on-screen total score
   var ls_totalScore = window.localStorage.getItem('totalScore',totalScore);
-  $(".ts-number").html(ls_totalScore);                   // Total score
+  $(".ts-number").html(ls_totalScore);
+  
+  // Load and update all hole scores
+  // for-loop
+  
 }
 
 
 
 // SCORE TRACKING
 // On click/tap of any row...
+
 $( ".hole-row" ).click(function() {
   
   // Which hole are we editing with this click?
   editingHole = $(this).attr("id");
-  //console.log("Editing hole: " + editingHole);
   
+  // -----------------------
   // COURSE POSITION UPDATES
   
   // estCoursePos is updated, but only ever increases
@@ -88,11 +110,12 @@ $( ".hole-row" ).click(function() {
   }
 
   // Updating estimated course position
-  if(editingHole >= (estCoursePos+posWindowW)) {
+  if(editingHole >= (estCoursePos+posWindowWidth)) {
     
     
   }
   
+  // ----------------
   // UPDATE THE SCORE  
   holeScore = $( this ).find(".hole-score").html();
 
@@ -117,8 +140,9 @@ $( ".hole-row" ).click(function() {
   $( this ).find(".h"+editingHole).html(holeScore);   // Hole score
   window.localStorage.setItem(editingHole, holeScore);
   
-  $(".ts-number").html(totalScore);                   // Total score
-  window.localStorage.setItem('totalScore',totalScore);
+  
+  setHoleScore(editingHole, holeScore);
+  setTotalScore(totalScore);
   
   
   
@@ -127,6 +151,19 @@ $( ".hole-row" ).click(function() {
 });
 
 
+// SET HOLE SCORE
+// Combined update of on-screen, displayed score, and localStore value
+function setHoleScore(hole,num) {
+  // Not using this right now because the $(this) call in the current code is nice and I'm not sure how to quickly repllicate it right now. (I know it'll be possible by passing editingHole to this function and using that in a query, but it's late and I want to make this functional befure I start refactoring...)
+}
+
+
+// SET TOTAL SCORE
+// Combined update of on-screen, displayed score, and localStore value
+function setTotalScore(num) {
+  $(".ts-number").html(num);
+  window.localStorage.setItem('totalScore',num);
+}
 
 
 // DEBUG ONLY: Clear Local Storage on Header Click
