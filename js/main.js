@@ -11,8 +11,7 @@ var posWindowWidth = 2;  // How large of a window do we leave editable around th
 // ----
 
 var holeScore;  // Holds the score of the hole during its editing
-var totalScore = 0; // Holds the total course score
-var editingHole;
+var totalScore; // Holds the total course score
 
 var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 
@@ -84,14 +83,28 @@ function isNewGame(nowSecs) {
 
 function loadScoresFromStorage() {
   
-  // Load and update on-screen total score
-  var ls_totalScore = window.localStorage.getItem('totalScore',totalScore);
-  $(".ts-number").html(ls_totalScore);
+  console.log ("Loading scores from localStorage...");
   
+
   // Load and update all hole scores
-  // for-loop
+  var hole;
+    
+  for (hole = 1; hole <= 18; hole++) {
+    if( score = window.localStorage.getItem('h'+hole) ) {
+      console.log("Stored score for Hole "+hole+" = " + score);
+    }
+    else {
+      score = 0; 
+    }
+    setHoleScore(hole,score);
+    
+  }
   
+  // Load and update on-screen total score
+  var totalScore = window.localStorage.getItem('totalScore',totalScore);
+  $(".ts-number").html(totalScore);
   
+  // TODO: This reload seems to be failing somehow; it's loading total score numbers lower than the sum of all the hole scores; better to just sum them up as we load them in and set that as the total score value here?
   
   
   
@@ -105,6 +118,7 @@ function loadScoresFromStorage() {
 $( ".hole-row" ).click(function() {
   
   // Which hole are we editing with this click?
+  var editingHole;
   editingHole = $(this).attr("id");
   
   // -----------------------
@@ -124,7 +138,8 @@ $( ".hole-row" ).click(function() {
   
   // ----------------
   // UPDATE THE SCORE  
-  holeScore = $(".h"+editingHole).html();
+  
+  holeScore = $(".h"+editingHole).html(); // get the hole's current score value
 
   // IFF Score=6  
   if(holeScore==6) {
@@ -155,8 +170,9 @@ $( ".hole-row" ).click(function() {
 // SET HOLE SCORE
 // Combined update of on-screen, displayed score, and localStore value
 function setHoleScore(hole, strokes) {
-  $(".h"+editingHole).html(strokes);// Find hole score element even more simply?
-  window.localStorage.setItem(editingHole, strokes);
+  console.log("setting hole " + hole + " score to " + strokes);
+  $(".h"+hole).html(strokes);// Find hole score element even more simply?
+  window.localStorage.setItem('h'+hole, strokes);
   
 }
 
