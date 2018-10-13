@@ -124,7 +124,7 @@ $( ".hole-row" ).click(function() {
   
   // ----------------
   // UPDATE THE SCORE  
-  holeScore = $( this ).find(".hole-score").html();
+  holeScore = $(".h"+editingHole).html();
 
   // IFF Score=6  
   if(holeScore==6) {
