@@ -77,6 +77,9 @@ function isNewGame(nowSecs) {
 }
 
 
+
+
+
 // Loading existing scores...
 
 function loadScoresFromStorage() {
@@ -87,6 +90,10 @@ function loadScoresFromStorage() {
   
   // Load and update all hole scores
   // for-loop
+  
+  
+  
+  
   
 }
 
@@ -104,7 +111,7 @@ $( ".hole-row" ).click(function() {
   // COURSE POSITION UPDATES
   
   // estCoursePos is updated, but only ever increases
-  if ( editingHole > estCoursePos ) {
+  if ( editingHole >= estCoursePos ) {
     estCoursePos = parseInt(editingHole) + 1;
     console.log("New estCoursePose="+estCoursePos);
   }
@@ -124,8 +131,6 @@ $( ".hole-row" ).click(function() {
     console.log("Score cannot exceed 6.");
     holeScore=1;
     totalScore = totalScore - 5;
-    
-
   }
   
   // Score<6
@@ -134,13 +139,9 @@ $( ".hole-row" ).click(function() {
     totalScore++;    
   }
   
-  console.log("Update: Hole=" + editingHole + " // Score=" + holeScore);
-   
+  
   // Update score fields
-  $( this ).find(".h"+editingHole).html(holeScore);   // Hole score
-  window.localStorage.setItem(editingHole, holeScore);
-  
-  
+  console.log("Update: Hole=" + editingHole + " // Score=" + holeScore);
   setHoleScore(editingHole, holeScore);
   setTotalScore(totalScore);
   
@@ -153,16 +154,18 @@ $( ".hole-row" ).click(function() {
 
 // SET HOLE SCORE
 // Combined update of on-screen, displayed score, and localStore value
-function setHoleScore(hole,num) {
-  // Not using this right now because the $(this) call in the current code is nice and I'm not sure how to quickly repllicate it right now. (I know it'll be possible by passing editingHole to this function and using that in a query, but it's late and I want to make this functional befure I start refactoring...)
+function setHoleScore(hole, strokes) {
+  $(".h"+editingHole).html(strokes);// Find hole score element even more simply?
+  window.localStorage.setItem(editingHole, strokes);
+  
 }
 
 
 // SET TOTAL SCORE
 // Combined update of on-screen, displayed score, and localStore value
-function setTotalScore(num) {
-  $(".ts-number").html(num);
-  window.localStorage.setItem('totalScore',num);
+function setTotalScore(strokes) {
+  $(".ts-number").html(strokes);
+  window.localStorage.setItem('totalScore', strokes);
 }
 
 
