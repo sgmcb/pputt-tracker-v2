@@ -20,7 +20,22 @@ var totalScore = 0;
 
 // NEW GAME DETECTION
 function isNewGame(currentTime) {
-  return true;
+  
+  var prevGameStart = window.localStorage.getItem('prevGameStart');
+  console.log("Last game started at: " + prevGameStart);
+  var timeSince = nowSecs - prevGameStart; // calculate the time since we last started a game on this device (in seconds)
+  var timeoutInSecs = (localStorageTimeout*60*60);
+  
+  console.log("Time since last game start=" + timeSince + " (seconds)");
+  
+  if( timeSince < timeoutInSecs ) {
+    return false;
+  }
+  
+  else { 
+    return true;    
+  }  
+  
   
   
   
@@ -36,14 +51,13 @@ function reloadScores() {
   
   for ( i = 1; i <=18; i++) {
     
-    strokes = parseInt(window.localStorage.getItem('h'+i));
+    strokes = parseInt( window.localStorage.getItem('h'+i) );
     
     if( isNaN(strokes) ) {
       strokes = 0;
     }
 
     // Set it!
-    scores[i] = strokes;
     setHoleScore(i, strokes);
         
     totalScore += strokes;
@@ -53,6 +67,8 @@ function reloadScores() {
   $(".total").html(totalScore);
   
 }
+
+
 
 function clearStoredScores() {
   window.localStorage.clear();
@@ -146,9 +162,12 @@ $( document ).ready(function() {
 
   if( !isNewGame(nowSecs) ) {
     reloadScores();  
+    
+    
   }
   else {
     clearStoredScores();
+    window.localStorage.setItem('prevGameStart',nowSecs);
   }
 
 
