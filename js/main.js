@@ -1,6 +1,5 @@
 // (C) 2018 High Quality Ideas LLC
-// v2.0.1
-
+// v2.1.1
 
 
 // CONFIG VALUES
@@ -8,16 +7,173 @@ var localStorageTimeout = 6;    // the number of hours (from game start) after w
 
 var posWindowWidth = 2;  // How large of a window do we leave editable around the estimated position?
 
-// ----
-
-var holeScore;  // Holds the score of the hole during its editing
-var totalScore; // Holds the total course score
-
-var estCoursePos = 1;   // Holds the position (i.e. hole) where we believe that the player is on the course
 
 
+// GLOBAL VARIABLES
+var estCoursePos = 1;
+var scores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // Length is 19 so that we can 1-index this
+var totalScore = 0;
 
-var nowSecs;
+
+
+
+
+// NEW GAME DETECTION
+function isNewGame(currentTime) {
+  return true;
+  
+  
+  
+}
+
+// LOADING STORED SCORES
+
+function reloadScores() {
+  console.log("Reload scores from memory...");
+  
+  var i;
+  var strokes;
+  
+  for ( i = 1; i <=18; i++) {
+    
+    strokes = parseInt(window.localStorage.getItem('h'+i));
+    
+    if( isNaN(strokes) ) {
+      strokes = 0;
+    }
+
+    // Set it!
+    scores[i] = strokes;
+    setHoleScore(i, strokes);
+        
+    totalScore += strokes;
+    
+  }
+  
+  $(".total").html(totalScore);
+  
+}
+
+function clearStoredScores() {
+  window.localStorage.clear();
+}
+
+
+// SCORE UPDATING
+
+function setHoleScore(hole, score) {
+
+  scores[hole] = score;
+  window.localStorage.setItem('h'+hole, score);
+  $(".h"+hole).html(score);// Find hole score element even more simply?
+  console.log("set hole " + hole + " score to " + score);  
+  
+}
+
+function updateTotalScore() {
+  $(".total").html(totalScore);
+}
+
+
+function addStroke(hole) {
+
+  var strokes = scores[hole];
+  
+  // TODO: Remove this when we start using a "subtractStroke" function
+  // Conditionals to loop score from 6 to 1
+  if (strokes == 6) {
+    strokes = 1;
+    totalScore -= 5;
+  }
+  
+  else {
+    strokes++;
+    totalScore++;
+  }
+  
+  setHoleScore(hole,strokes);
+  updateTotalScore();
+  
+  
+   
+}
+
+// TODO: Add a removeStroke() function...
+
+
+// On click/tap of any row...
+
+$( ".hole-row" ).click(function() {
+  
+  var editingHole = $(this).attr("id");
+
+  //updateCoursePosition(editingHole);  
+  addStroke(editingHole);
+  
+  
+});
+
+
+// ESTIMATING COURSE POSITION
+
+function updateCoursePosition(hole) {
+  
+    // estCoursePos is updated, but only ever increases
+  if ( editingHole >= estCoursePos ) {
+    estCoursePos = parseInt(editingHole) + 1;
+    console.log("New estCoursePose="+estCoursePos);
+  }
+
+  // Updating estimated course position
+  if(editingHole >= (estCoursePos+posWindowWidth)) {
+  }
+    
+}
+    
+    
+
+// ---------
+// MAIN LOOP
+
+
+$( document ).ready(function() {
+  console.log("Main Loop running...");
+
+  // Get the time to pass to isNewGame
+  var now = new Date();
+  nowSecs = now.getTime()/1000;
+  console.log("Current time is: " + nowSecs +" (in epoch-seconds)");
+
+  if( !isNewGame(nowSecs) ) {
+    reloadScores();  
+  }
+  else {
+    clearStoredScores();
+  }
+
+
+});
+
+
+
+
+
+// DEBUG ONLY: Clear Local Storage on Header Click
+
+
+$(".header").click(function() {
+  window.localStorage.clear();
+  console.log("localStorage cleared");
+  
+});
+
+
+
+/*
+
+
+
+
 
 // DOCUMENT READY
 $( document ).ready(function() {
@@ -185,24 +341,16 @@ function setTotalScore(strokes) {
 }
 
 
-// DEBUG ONLY: Clear Local Storage on Header Click
 
 
-$(".header").click(function() {
-  window.localStorage.clear();
-  console.log("localStorage cleared");
-  
-});
 
-
-/*
 
 var hammertime = new Hammer(myElement, myOptions);
 hammertime.on('pan', function(ev) {
 	console.log(ev);
 });
 
-*/
+
 
 
 // Try to prevent reload
