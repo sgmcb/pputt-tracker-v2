@@ -50,18 +50,17 @@ function reloadScores() {
   var strokes;
   
   for ( i = 1; i <=18; i++) {
-    
     strokes = parseInt( window.localStorage.getItem('h'+i) );
     
     if( isNaN(strokes) ) {
       strokes = 0;
     }
 
-    // Set it!
-    setHoleScore(i, strokes);
-        
-    totalScore += strokes;
-    
+    // IFF the score for the hole isn't still zero...
+    if(strokes > 0) {
+      setHoleScore(i, strokes);
+      totalScore += strokes;
+    }
   }
   
   $(".total").html(totalScore);
