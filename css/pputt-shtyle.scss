@@ -11,6 +11,8 @@ v1.1
 // COLOR DEFINITIONS
 $dk-gray: #E6E7E8;
 $lt-gray: #F1F2F2;
+$lt-red:  #FF8888;
+
 $active-text: rgb(0,0,0);
 $inactive-text: rgb(100,100,100);
     
@@ -32,6 +34,10 @@ body {
     font-size: 10px;
     background-color: $dk-gray;
     
+    // Make all the text on this page un-selectable
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;        
 }
 
 
@@ -94,6 +100,8 @@ body {
 
 .scorecard {
     padding-top: $header-height;
+    
+
 
   .row {
       display:block;
@@ -109,13 +117,21 @@ body {
       &.unlocked {
         color: $active-text;
       }
+      
       color: $inactive-text;
+      
+      &.skipped {
+        background-color:$lt-red;
+        color: white;
+      }
   }
 }
 
 
 .hole-name-cont {
     float:left;
+
+    
     
   .hole-name {
     font-size: 3em;

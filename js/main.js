@@ -149,7 +149,7 @@ function addStroke(hole) {
 
 // On click/tap of any row...
 
-$( "hole.row.unlocked" ).click(function() {    // TODO: Is there a way to do a jquery selector that will only make this operation if the row DOESN'T have a certain class? (Seems cleaner to start with everything unlocked without an ".unlocked" class, then add ".locked" i.e. I'm not fond of how I'm doing this now...)
+$( ".hole.row.unlocked" ).click(function() {    // TODO: Is there a way to do a jquery selector that will only make this operation if the row DOESN'T have a certain class? (Seems cleaner to start with everything unlocked without an ".unlocked" class, then add ".locked" i.e. I'm not fond of how I'm doing this now...)
   
   console.log("WTF?");
   
@@ -175,12 +175,20 @@ function updateCoursePosition(hole) {
     trailingEdge = estCoursePos - editWindowTrail;
     leadingEdge = estCoursePos + editWindowLead;
     
-    // LOCK TRAILING EDGE the hole on the trailing edge of our edit window
-    // BRUTE FORCE: Run a for loop on all the trailing holes...
-    // TODO: Find a more elegant way to do this
+    // TRAILING EDGE updates
+      // TODO: Find a more elegant way to do this; this is pretty brute-force...
     for ( var i = 1; i < trailingEdge; i++) {
-      console.log("Locking hole "+ i);
-      $(".h"+i+"-row").removeClass("unlocked");
+      
+      if (scores[i] > 0) {
+        $(".h"+i+"-row").removeClass("unlocked");
+        console.log("Locking hole "+ i);        
+      }
+      else { // Hole has been skipped...
+        // TODO: Highlighting skipped rows 
+        $(".h"+i+"-row").addClass("skipped");       
+      }
+      
+
       
     }
     
