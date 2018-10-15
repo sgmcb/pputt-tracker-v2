@@ -53,14 +53,12 @@ body {
 
 .scorecard {
   padding-top: 8em; }
-
-.hole-row {
-  display: block;
-  height: 5em;
-  padding: 1em; }
-
-.even-row {
-  background-color: #F1F2F2; }
+  .scorecard .row {
+    display: block;
+    height: 5em;
+    padding: 1em; }
+    .scorecard .row.even {
+      background-color: #F1F2F2; }
 
 .hole-name-cont {
   float: left; }

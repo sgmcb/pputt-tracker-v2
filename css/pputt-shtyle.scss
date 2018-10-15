@@ -101,19 +101,25 @@ body {
     padding-top: $header-height;
     //background-color: $dk-gray;
 
+  .row {
+      display:block;
+      height: 5em;
+      //background-color: $dk-gray;
+  
+      padding: 1em;
+      
+      &.even {
+        background-color: $lt-gray;
+      }
+      
+  }
+
+
 }
 
-.hole-row {
-    display:block;
-    height: 5em;
-    //background-color: $dk-gray;
 
-    padding: 1em;
-}
 
-.even-row {
-    background-color: $lt-gray;
-}
+
 
 
 .hole-name-cont {
