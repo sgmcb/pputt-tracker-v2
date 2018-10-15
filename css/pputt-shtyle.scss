@@ -64,95 +64,70 @@ body {
   display:block;
   float:left;
   height: 6em;
-  margin-top:-0.15em;
-  
-  fill: #FFFFFF;
-  
-  
-  
-  
+  margin-top:-0.15em;  
 }
 
-.logo:path {
-//  fill: #FFFFFF;
-}
+
+// TOTAL SORE
 
 .total-score-cont {
     float:right;
-    
+
+  .total {
+      font-size: 4em;
+      display:block;
+      text-align:right;
+      line-height:1em;
+  
+  }
+  
+  .ts-text {
+      font-size: 1.5em;
+      float:right;
+      text-align: right;
+      line-height:1em;
+  }
 }
 
-.total {
-    font-size: 4em;
-    display:block;
-    text-align:right;
-    line-height:1em;
 
-}
-
-.ts-text {
-    font-size: 1.5em;
-    float:right;
-    text-align: right;
-    line-height:1em;
-}
-
-
+// SCORECARD
 
 .scorecard {
     padding-top: $header-height;
-    //background-color: $dk-gray;
 
   .row {
       display:block;
       height: 5em;
-      //background-color: $dk-gray;
   
-      padding: 1em;
-      
-      //color: $inactive-text;    // we'll use this when the JS is caught up...
-      
-      // Active holes are not grayed
-      &.active {
-        color: $active-text;
-      }
+      padding: 1em;      
       
       &.even {
         background-color: $lt-gray;
       }
-      
+
+      // Locked holes are styled differently
+      &.locked {
+        color: $active-text;
+      }
   }
-
-
 }
-
-
-
-
 
 
 .hole-name-cont {
     float:left;
-}
-
-.hole-name {
-  font-size: 3em;
-  line-height:1em;
+    
+  .hole-name {
+    font-size: 3em;
+    line-height:1em;
+  }    
+    
 }
 
 .hole-score-cont {
     float: right;
-}
-
-.hole-score {
-  font-size: 3em;
-  line-height:1em;
-}
-
-/* Init styling 
-   A class to be initially applied and removed by JS as users update their scores...
-*/
-
-.hole-row.init {
-  color: #999;
+    
+  .hole-score {
+    font-size: 3em;
+    line-height:1em;
+  }   
 }

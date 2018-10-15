@@ -33,23 +33,20 @@ body {
   display: block;
   float: left;
   height: 6em;
-  margin-top: -0.15em;
-  fill: #FFFFFF; }
+  margin-top: -0.15em; }
 
 .total-score-cont {
   float: right; }
-
-.total {
-  font-size: 4em;
-  display: block;
-  text-align: right;
-  line-height: 1em; }
-
-.ts-text {
-  font-size: 1.5em;
-  float: right;
-  text-align: right;
-  line-height: 1em; }
+  .total-score-cont .total {
+    font-size: 4em;
+    display: block;
+    text-align: right;
+    line-height: 1em; }
+  .total-score-cont .ts-text {
+    font-size: 1.5em;
+    float: right;
+    text-align: right;
+    line-height: 1em; }
 
 .scorecard {
   padding-top: 8em; }
@@ -57,27 +54,19 @@ body {
     display: block;
     height: 5em;
     padding: 1em; }
-    .scorecard .row.active {
-      color: black; }
     .scorecard .row.even {
       background-color: #F1F2F2; }
+    .scorecard .row.locked {
+      color: black; }
 
 .hole-name-cont {
   float: left; }
-
-.hole-name {
-  font-size: 3em;
-  line-height: 1em; }
+  .hole-name-cont .hole-name {
+    font-size: 3em;
+    line-height: 1em; }
 
 .hole-score-cont {
   float: right; }
-
-.hole-score {
-  font-size: 3em;
-  line-height: 1em; }
-
-/* Init styling 
-   A class to be initially applied and removed by JS as users update their scores...
-*/
-.hole-row.init {
-  color: #999; }
+  .hole-score-cont .hole-score {
+    font-size: 3em;
+    line-height: 1em; }
