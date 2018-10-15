@@ -144,7 +144,8 @@ $(".hole.row").click(function() {
     $(this).addClass("unlocked");
   }
   
-  else {
+  else {  // Conditional that will handle all clicks of locked holes?
+    console.log("Double tap a hole to unlock it.");
     // TODO: Do we want to do anything if the user clicks a locked hole?
     // (How would we indicate to them that they should "Hold to unlock"? A full-screen overlay?)
   }
