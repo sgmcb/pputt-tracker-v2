@@ -6,7 +6,21 @@ v1.1
 
 */
 
+
+
+// COLOR DEFINITIONS
+$dk-gray: #E6E7E8;
+$lt-gray: #F1F2F2;
+    
+
+// VARIABLE E
 $header-height: 8em;
+
+
+
+
+
+
 
 * {
     box-sizing: border-box;
@@ -14,8 +28,13 @@ $header-height: 8em;
 
 body {
     font-size: 10px;
+    background-color: $dk-gray;
     
 }
+
+
+
+
 
 .header {
     position: fixed;
@@ -47,10 +66,13 @@ body {
   
   fill: #FFFFFF;
   
+  
+  
+  
 }
 
 .logo:path {
-  fill: #FFFFFF;
+//  fill: #FFFFFF;
 }
 
 .total-score-cont {
@@ -77,24 +99,20 @@ body {
 
 .scorecard {
     padding-top: $header-height;
-    background-color: #E6E7E8;
+    //background-color: $dk-gray;
 
 }
 
 .hole-row {
     display:block;
     height: 5em;
-    background-color: #E6E7E8;
+    //background-color: $dk-gray;
 
     padding: 1em;
 }
 
 .even-row {
-    background-color: #F1F2F2;
-}
-
-.h1-row {
-
+    background-color: $lt-gray;
 }
 
 
