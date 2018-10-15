@@ -110,7 +110,7 @@ body {
   
       padding: 1em;
       
-      color: $inactive-text;
+      //color: $inactive-text;    // we'll use this when the JS is caught up...
       
       // Active holes are not grayed
       &.active {

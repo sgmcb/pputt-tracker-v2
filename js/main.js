@@ -133,15 +133,13 @@ $( ".row.hole" ).click(function() {
 
 function updateCoursePosition(hole) {
   
-    // estCoursePos is updated, but only ever increases
+  // estCoursePos is updated, but only ever increases
   if ( editingHole >= estCoursePos ) {
     estCoursePos = parseInt(editingHole) + 1;
     console.log("New estCoursePose="+estCoursePos);
   }
-
-  // Updating estimated course position
-  if(editingHole >= (estCoursePos+posWindowWidth)) {
-  }
+  
+  // Update active states of holes
     
 }
     
