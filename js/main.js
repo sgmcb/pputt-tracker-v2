@@ -118,7 +118,7 @@ function addStroke(hole) {
 
 // On click/tap of any row...
 
-$( ".hole-row" ).click(function() {
+$( ".row.hole" ).click(function() {
   
   var editingHole = $(this).attr("id");
 

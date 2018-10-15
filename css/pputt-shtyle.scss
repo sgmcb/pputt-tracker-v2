@@ -11,6 +11,8 @@ v1.1
 // COLOR DEFINITIONS
 $dk-gray: #E6E7E8;
 $lt-gray: #F1F2F2;
+$active-text: rgb(0,0,0);
+$inactive-text: rgb(100,100,100);
     
 
 // VARIABLE E
@@ -107,6 +109,13 @@ body {
       //background-color: $dk-gray;
   
       padding: 1em;
+      
+      color: $inactive-text;
+      
+      // Active holes are not grayed
+      &.active {
+        color: $active-text;
+      }
       
       &.even {
         background-color: $lt-gray;

@@ -56,7 +56,10 @@ body {
   .scorecard .row {
     display: block;
     height: 5em;
-    padding: 1em; }
+    padding: 1em;
+    color: #646464; }
+    .scorecard .row.active {
+      color: black; }
     .scorecard .row.even {
       background-color: #F1F2F2; }
 
