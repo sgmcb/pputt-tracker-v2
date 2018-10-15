@@ -149,16 +149,27 @@ function addStroke(hole) {
 
 // On click/tap of any row...
 
-$( ".hole.row.unlocked" ).click(function() {    // TODO: Is there a way to do a jquery selector that will only make this operation if the row DOESN'T have a certain class? (Seems cleaner to start with everything unlocked without an ".unlocked" class, then add ".locked" i.e. I'm not fond of how I'm doing this now...)
+$(".hole.row").click(function() {
   
-  console.log("WTF?");
+  // WHY is this still applying even after the "unlocked" class is removed from the DOM element?
+  // I don't like this workaround, but I don't seem to have much choice...
+  // ALTHOUGH: This gives us the ability to detect presses on locked rows and potentially act on them; is it better to do that all in one .click function, or have a separate jQuery selector for actions on locked elements?
   
-  // Get the number of the edited hole...
-  var editingHole = $(this).attr("id");
   
-  addStroke(editingHole);
-  updateCoursePosition(editingHole);
+  if ( $(this).hasClass("unlocked") ) {
+    console.log("WTF?");
+    
+    // Get the number of the edited hole...
+    var editingHole = $(this).attr("id");
+    
+    addStroke(editingHole);
+    updateCoursePosition(editingHole);    
+  }
   
+  else {
+    // TODO: Do we want to do anything if the user clicks a locked hole?
+    // (How would we indicate to them that they should "Hold to unlock"? A full-screen overlay?)
+  }
 });
 
 
