@@ -11,12 +11,12 @@ var editWindowLead = 2;  // How many holes "in front of" the player are unlocked
 // GLOBAL VARIABLES
 var estCoursePos = 1;
 var trailingEdge = 1- editWindowTrail;
-var leadingEdge = 1+ editWindowLead;
- 
+var leadingEdge = 1+ editWindowLead; 
   
 var scores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // Length is 19 so that we can 1-index this
 var totalScore = 0;
 
+var lastClicked = 0;    // A variable to track the last hole that the user clicked
 
 
 
@@ -128,21 +128,29 @@ $(".hole.row").click(function() {
   // I don't like this workaround, but I don't seem to have much choice...
   // ALTHOUGH: This gives us the ability to detect presses on locked rows and potentially act on them; is it better to do that all in one .click function, or have a separate jQuery selector for actions on locked elements?
   
+  // Get the number of the edited hole...
+  var clickedHole = $(this).attr("id");
   
+  // If the hole is unlocked, update the scorecard
   if ( $(this).hasClass("unlocked") ) {
-    console.log("WTF?");
-    
-    // Get the number of the edited hole...
-    var editingHole = $(this).attr("id");
-    
-    addStroke(editingHole);
-    updateCoursePosition(editingHole);    
+    addStroke(clickedHole);
+    updateCoursePosition(clickedHole);
+  }
+  
+  // If the user taps the same hole twice, unlock it.
+  // TODO: Update this for hammer.js press-and-hold function
+  else if (clickedHole == lastClicked) {
+    console.log("Unlocking Hole " + clickedHole);
+    $(this).addClass("unlocked");
   }
   
   else {
     // TODO: Do we want to do anything if the user clicks a locked hole?
     // (How would we indicate to them that they should "Hold to unlock"? A full-screen overlay?)
   }
+  
+  lastClicked = clickedHole;
+  
 });
 
 
