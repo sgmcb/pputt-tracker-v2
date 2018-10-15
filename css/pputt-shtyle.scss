@@ -105,10 +105,11 @@ body {
         background-color: $lt-gray;
       }
 
-      // Locked holes are styled differently
-      &.locked {
+      // This styling is kinda backwards, but until I can read the jquery docs on NOT-class selectors, this is how it's done :-(
+      &.unlocked {
         color: $active-text;
       }
+      color: $inactive-text;
   }
 }
 
