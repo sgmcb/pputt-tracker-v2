@@ -1,3 +1,10 @@
+/*
+pputt score tracker styling
+v1.1
+
+(C) High Quality Ideas LLC
+
+*/
 
 * {
     box-sizing: border-box;
@@ -5,6 +12,7 @@
 
 body {
     font-size: 10px;
+    
 }
 
 .header {
