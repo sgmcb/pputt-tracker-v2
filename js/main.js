@@ -5,12 +5,19 @@
 // CONFIG VALUES
 var localStorageTimeout = 6;    // the number of hours (from game start) after which the localStorage will clear itself
 
-var posWindowWidth = 2;  // How large of a window do we leave editable around the estimated position?
-
-
+var posWindowTrail = 2;  // How many holes "behind" the player stay unlocked?
+var posWindowLead = 2;  // How many holes "in front of" the player are unlocked?
+  //^^ These variables define the number of "unlocked" holes that we have at any given time. The total number of unlocked holes will be (Trail+Lead+1).
 
 // GLOBAL VARIABLES
 var estCoursePos = 1;
+//var lockedThrough = 0;    // Tracking the holes that are locked; (Do we need this, or is just another variable that can become mis-matched)
+//var highestShown = 18;    // Eventually, if we start dynamically showing the later holes as people enter scores, we'll want to track this. (For now, we're showing through 18.)
+var trailingEdge = 1- posWindowTrail;
+var leadingEdge = 1+ posWindowLead;
+
+
+
 var scores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // Length is 19 so that we can 1-index this
 var totalScore = 0;
 
@@ -60,10 +67,13 @@ function reloadScores() {
     if(strokes > 0) {
       setHoleScore(i, strokes);
       totalScore += strokes;
+      estCoursePos=i+1;
     }
   }
   
   $(".total").html(totalScore);
+  
+  // TODO: Run a "lockPrevHoles" routine
   
 }
 
@@ -109,8 +119,6 @@ function addStroke(hole) {
   setHoleScore(hole,strokes);
   updateTotalScore();
   
-  
-   
 }
 
 // TODO: Add a removeStroke() function...
@@ -118,13 +126,11 @@ function addStroke(hole) {
 
 // On click/tap of any row...
 
-$( ".row.hole" ).click(function() {
+$( ".row.hole.unlocked" ).click(function() {    // TODO: Is there a way to do a jquery selector that will only make this operation if the row DOESN'T have a certain class? (Seems cleaner to start with everything unlocked without an ".unlocked" class, then add ".locked" i.e. I'm not fond of how I'm doing this now...)
   
   var editingHole = $(this).attr("id");
-
-  //updateCoursePosition(editingHole);  
   addStroke(editingHole);
-  
+  updateCoursePosition(hole);
   
 });
 
@@ -134,12 +140,24 @@ $( ".row.hole" ).click(function() {
 function updateCoursePosition(hole) {
   
   // estCoursePos is updated, but only ever increases
-  if ( editingHole >= estCoursePos ) {
-    estCoursePos = parseInt(editingHole) + 1;
-    console.log("New estCoursePose="+estCoursePos);
+  if ( hole >= estCoursePos ) {
+    estCoursePos = parseInt(hole) + 1;    // Not sure why this line/function is interpreting hole as a text variable; seems to be working fine everywhere else...
+    console.log("New estCoursePos="+estCoursePos);
   }
   
-  // Update active states of holes
+  // LOCK TRAILING EDGE the hole on the trailing edge of our edit window
+  trailingEdge = estCoursePos
+  
+  if(estCoursePos > trailingEdge) {
+    
+    
+    
+  }
+  
+  // UNLOCK LEADING EDGE
+  
+  
+  
     
 }
     
