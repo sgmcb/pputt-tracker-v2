@@ -4,56 +4,79 @@
 }
 
 body {
-    font-size: 14px;
+    font-size: 10px;
 }
 
 .header {
     position: fixed;
-    height: 16em;
+    height: 8em;
     width: 100%;
     background-color: #58595B;
 
-    padding: 50px;
+    padding: 1em;
 
     color: rgb(255,255,255);
+    box-shadow: 0px 0px 10px 2px #888888;
+    
+    /* Trapezoid top clip
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      0 calc(100% - 5vw)
+    );
+    */
 
 }
 
 .logo {
+  display:block;
+  float:left;
+  height: 6em;
+  margin-top:-0.15em;
+  
+  fill: #FFFFFF;
+  
+}
 
+.logo:path {
+  fill: #FFFFFF;
 }
 
 .total-score-cont {
     float:right;
-
+    
 }
 
-.ts-number {
+.total {
     font-size: 4em;
     display:block;
     text-align:right;
+    line-height:1em;
 
 }
 
 .ts-text {
+    font-size: 1.5em;
     float:right;
     text-align: right;
+    line-height:1em;
 }
 
 
 
 .scorecard {
-    padding-top: 16em;
+    padding-top: 8em;
     background-color: #E6E7E8;
 
 }
 
 .hole-row {
     display:block;
-    height: 10em;
+    height: 5em;
     background-color: #E6E7E8;
 
-    padding: 1em 3em;
+    padding: 1em;
 }
 
 .even-row {
@@ -67,10 +90,26 @@ body {
 
 .hole-name-cont {
     float:left;
-    background-color: red;
+}
+
+.hole-name {
+  font-size: 3em;
+  line-height:1em;
 }
 
 .hole-score-cont {
     float: right;
-    background-color: blue;
+}
+
+.hole-score {
+  font-size: 3em;
+  line-height:1em;
+}
+
+/* Init styling 
+   A class to be initially applied and removed by JS as users update their scores...
+*/
+
+.hole-row.init {
+  color: #999;
 }

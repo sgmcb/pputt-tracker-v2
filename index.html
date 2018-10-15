@@ -7,35 +7,53 @@
   <title>PPutt Score Tracker v2</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- Fullscreen webapp stuff -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- <link rel="manifest" href="/manifest.json"> Add later: https://developers.google.com/web/fundamentals/web-app-manifest/ -->
 
+  
   <link rel="manifest" href="site.webmanifest">
+  
+  <!-- Fav Icon --> 
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main-bp-reset.css">
+  
+  
+  <link rel="stylesheet" href="https://use.typekit.net/dyt7epp.css">
   <link rel="stylesheet" href="css/pputt-shtyle.css">
+  
+  
+  
+  
 </head>
 
-<body>
+<body class="tk-korolev-compressed">
   <!--[if lte IE 9]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
 
 
+
 <div class="header">
-  <span class="logo"></span>
+  <img class="logo" src="img/PPutt-Logo.min.svg" alt="Putt Logo" />
 
   <div class="total-score-cont">
-    <span class="ts-number">#</span>
-    <span class="ts-text">strokes</span>
+    <span class="total">#</span>
+    <span class="ts-tex">strokes</span>
   </div>
 </div>
 
 <div class="scorecard">
+  
+  <!-- TODO: We need a warning/note somewhere that this site is entirely dependent on JavaScript. Typically, this means moving all the code below into our main JS file, and we add it with JS once the page is loaded. Someone with JS disabled will never see it, therefore, and only get a default "This page needs JS." element -->
 
   <!-- HOLE 1 -->
-  <div class="hole-row h1-row">
+  <div class="hole-row h1-row active" id="1">
     <div class="hole-name-cont">
       <span class="hole-name">Hole 1</span>
     </div>
@@ -45,7 +63,7 @@
   </div>
 
   <!-- HOLE 2 -->
-  <div class="hole-row h2-row even-row">
+  <div class="hole-row h2-row even-row active" id="2">
       <div class="hole-name-cont">
         <span class="hole-name">Hole 2</span>
       </div>
@@ -55,7 +73,7 @@
     </div>
 
   <!-- HOLE 3 -->
-  <div class="hole-row h3-row">
+  <div class="hole-row h3-row active" id="3">
       <div class="hole-name-cont">
         <span class="hole-name">Hole 3</span>
       </div>
@@ -65,7 +83,7 @@
     </div>
 
   <!-- HOLE 4 -->
-  <div class="hole-row h4-row even-row">
+  <div class="hole-row h4-row even-row" id="4">
       <div class="hole-name-cont">
         <span class="hole-name">Hole 4</span>
       </div>
@@ -75,7 +93,7 @@
     </div>
   
     <!-- HOLE 5 -->
-    <div class="hole-row h5-row">
+    <div class="hole-row h5-row" id="5">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 5</span>
         </div>
@@ -85,7 +103,7 @@
       </div>
   
     <!-- HOLE 6 -->
-    <div class="hole-row h6-row even-row">
+    <div class="hole-row h6-row even-row" id="6">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 6</span>
         </div>
@@ -95,7 +113,7 @@
       </div>
 
   <!-- HOLE 7 -->
-  <div class="hole-row h7-row">
+  <div class="hole-row h7-row" id="7">
       <div class="hole-name-cont">
         <span class="hole-name">Hole 7</span>
       </div>
@@ -105,7 +123,7 @@
     </div>
   
     <!-- HOLE 8 -->
-    <div class="hole-row h8-row even-row">
+    <div class="hole-row h8-row even-row" id="8">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 8</span>
         </div>
@@ -115,7 +133,7 @@
       </div>
   
     <!-- HOLE 9 -->
-    <div class="hole-row h9-row">
+    <div class="hole-row h9-row" id="9">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 9</span>
         </div>
@@ -125,7 +143,7 @@
       </div>
   
     <!-- HOLE 10 -->
-    <div class="hole-row h10-row even-row">
+    <div class="hole-row h10-row even-row" id="10">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 10</span>
         </div>
@@ -135,7 +153,7 @@
       </div>
     
       <!-- HOLE 11 -->
-      <div class="hole-row h11-row">
+      <div class="hole-row h11-row" id="11">
           <div class="hole-name-cont">
             <span class="hole-name">Hole 11</span>
           </div>
@@ -145,7 +163,7 @@
         </div>
     
       <!-- HOLE 12 -->
-      <div class="hole-row h12-row even-row">
+      <div class="hole-row h12-row even-row" id="12">
           <div class="hole-name-cont">
             <span class="hole-name">Hole 12</span>
           </div>
@@ -155,7 +173,7 @@
         </div>
 
   <!-- HOLE 13 -->
-  <div class="hole-row h13-row">
+  <div class="hole-row h13-row" id="13">
       <div class="hole-name-cont">
         <span class="hole-name">Hole 13</span>
       </div>
@@ -165,7 +183,7 @@
     </div>
   
     <!-- HOLE 14 -->
-    <div class="hole-row h14-row even-row">
+    <div class="hole-row h14-row even-row" id="14">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 14</span>
         </div>
@@ -175,7 +193,7 @@
       </div>
   
     <!-- HOLE 15 -->
-    <div class="hole-row h15-row">
+    <div class="hole-row h15-row" id="15">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 15</span>
         </div>
@@ -185,7 +203,7 @@
       </div>
   
     <!-- HOLE 16 -->
-    <div class="hole-row h16-row even-row">
+    <div class="hole-row h16-row even-row" id="16">
         <div class="hole-name-cont">
           <span class="hole-name">Hole 16</span>
         </div>
@@ -195,7 +213,7 @@
       </div>
     
       <!-- HOLE 17 -->
-      <div class="hole-row h17-row">
+      <div class="hole-row h17-row" id="17">
           <div class="hole-name-cont">
             <span class="hole-name">Hole 17</span>
           </div>
@@ -205,77 +223,28 @@
         </div>
     
       <!-- HOLE 18 -->
-      <div class="hole-row h18-row even-row">
+      <div class="hole-row h18-row even-row" id="18">
           <div class="hole-name-cont">
             <span class="hole-name">Hole 18</span>
           </div>
-          <div class="hole-score-cont">
-            <span class="hole-score h18">0</span>
+          <div class="hole-score-cont ">
+            <span class="hole-score init h18">0</span>
           </div>
         </div>
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <!-- Source JS libraries -->
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+  <script src="js/hammer.min.js"></script>
+  
+  <!-- Boilerplate JS -->
   <script src="js/plugins.js"></script>
+
+  <!-- Application JS -->
+  
   <script src="js/main.js"></script>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
@@ -284,6 +253,7 @@
     ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
   </script>
   <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+  
 </body>
 
 </html>
