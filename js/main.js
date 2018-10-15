@@ -12,34 +12,7 @@ var editWindowLead = 2;  // How many holes "in front of" the player are unlocked
 var estCoursePos = 1;
 var trailingEdge = 1- editWindowTrail;
 var leadingEdge = 1+ editWindowLead;
-
-var FALSE = 0;
-var TRUE = 1;
-
-
-var lockStatus = [FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE];
-  //^^ Trying out an array to track which holes are locked and unlocked? This feels kludge-y, though...
-  
-/* TODO: Use a single "status" array for holes with an enum of states? e.g.
-  0 = "Unreached" - hole that the editing window's leading edge hasn't reached yet
-  1 = "Unlocked"  - hole in the current editing window
-  2 = "Complete"  - hole with a score that is behind the trailing edge; locked
-  3 = "Skipped"   - hole with a zero score that is before a hole with an entered score
-  
-  
-  // N.B. Keep in mind what info we are and are not putting into localStorage... more data in javascript is more info that we need to be writing to the device...
-  
-  
-  
-  Give a bit more though to how conditional and integer operations on these values may be more elegant based on their order...
-*/
-
-// USE AN "unlocked holes" array that contains the numbers of all unlocked holes?
-
-
-
-var holeStatus = [1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-  //^^ This is defined manually; make sure that the number of unlocked holes at the start is equal to (editWindowLead + 1)   
+ 
   
 var scores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // Length is 19 so that we can 1-index this
 var totalScore = 0;
