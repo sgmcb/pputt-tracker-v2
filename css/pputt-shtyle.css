@@ -1,115 +1,79 @@
+/*
+pputt score tracker styling
+v1.1
 
+(C) High Quality Ideas LLC
+
+*/
 * {
-    box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 body {
-    font-size: 10px;
-}
+  font-size: 10px;
+  background-color: #E6E7E8;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; }
 
 .header {
-    position: fixed;
-    height: 8em;
-    width: 100%;
-    background-color: #58595B;
-
-    padding: 1em;
-
-    color: rgb(255,255,255);
-    box-shadow: 0px 0px 10px 2px #888888;
-    
-    /* Trapezoid top clip
+  position: fixed;
+  height: 8em;
+  width: 100%;
+  background-color: #58595B;
+  padding: 1em;
+  color: white;
+  box-shadow: 0px 0px 10px 2px #888888;
+  /* Trapezoid top clip
     clip-path: polygon(
       0 0,
       100% 0,
       100% 100%,
       0 calc(100% - 5vw)
     );
-    */
-
-}
+    */ }
 
 .logo {
-  display:block;
-  float:left;
+  display: block;
+  float: left;
   height: 6em;
-  margin-top:-0.15em;
-  
-  fill: #FFFFFF;
-  
-}
-
-.logo:path {
-  fill: #FFFFFF;
-}
+  margin-top: -0.15em; }
 
 .total-score-cont {
-    float:right;
-    
-}
-
-.total {
+  float: right; }
+  .total-score-cont .total {
     font-size: 4em;
-    display:block;
-    text-align:right;
-    line-height:1em;
-
-}
-
-.ts-text {
-    font-size: 1.5em;
-    float:right;
+    display: block;
     text-align: right;
-    line-height:1em;
-}
-
-
+    line-height: 1em; }
+  .total-score-cont .ts-text {
+    font-size: 1.5em;
+    float: right;
+    text-align: right;
+    line-height: 1em; }
 
 .scorecard {
-    padding-top: 8em;
-    background-color: #E6E7E8;
-
-}
-
-.hole-row {
-    display:block;
+  padding-top: 8em; }
+  .scorecard .row {
+    display: block;
     height: 5em;
-    background-color: #E6E7E8;
-
     padding: 1em;
-}
-
-.even-row {
-    background-color: #F1F2F2;
-}
-
-.h1-row {
-
-}
-
+    color: #646464; }
+    .scorecard .row.even {
+      background-color: #F1F2F2; }
+    .scorecard .row.unlocked {
+      color: black; }
+    .scorecard .row.skipped {
+      background-color: #FF8888;
+      color: white; }
 
 .hole-name-cont {
-    float:left;
-}
-
-.hole-name {
-  font-size: 3em;
-  line-height:1em;
-}
+  float: left; }
+  .hole-name-cont .hole-name {
+    font-size: 3em;
+    line-height: 1em; }
 
 .hole-score-cont {
-    float: right;
-}
-
-.hole-score {
-  font-size: 3em;
-  line-height:1em;
-}
-
-/* Init styling 
-   A class to be initially applied and removed by JS as users update their scores...
-*/
-
-.hole-row.init {
-  color: #999;
-}
+  float: right; }
+  .hole-score-cont .hole-score {
+    font-size: 3em;
+    line-height: 1em; }

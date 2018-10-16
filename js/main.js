@@ -1,19 +1,22 @@
 // (C) 2018 High Quality Ideas LLC
 // v2.1.1
 
-
 // CONFIG VALUES
 var localStorageTimeout = 6;    // the number of hours (from game start) after which the localStorage will clear itself
 
-var posWindowWidth = 2;  // How large of a window do we leave editable around the estimated position?
-
-
+var editWindowTrail = 2;  // How many holes "behind" the player stay unlocked?
+var editWindowLead = 2;  // How many holes "in front of" the player are unlocked?
+  //^^ These variables define the number of "unlocked" holes that we have at any given time. The total number of unlocked holes will be (Trail+Lead+1).
 
 // GLOBAL VARIABLES
 var estCoursePos = 1;
+var trailingEdge = 1- editWindowTrail;
+var leadingEdge = 1+ editWindowLead; 
+  
 var scores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // Length is 19 so that we can 1-index this
 var totalScore = 0;
 
+var lastClicked = 0;    // A variable to track the last hole that the user clicked
 
 
 
@@ -50,21 +53,23 @@ function reloadScores() {
   var strokes;
   
   for ( i = 1; i <=18; i++) {
-    
     strokes = parseInt( window.localStorage.getItem('h'+i) );
     
     if( isNaN(strokes) ) {
       strokes = 0;
     }
 
-    // Set it!
-    setHoleScore(i, strokes);
-        
-    totalScore += strokes;
-    
+    // IFF the score for the hole isn't still zero...
+    if(strokes > 0) {
+      setHoleScore(i, strokes);
+      totalScore += strokes;
+      updateCoursePosition(i);
+    }
   }
   
   $(".total").html(totalScore);
+  
+  // TODO: Run a "lockPrevHoles" routine
   
 }
 
@@ -82,7 +87,7 @@ function setHoleScore(hole, score) {
   scores[hole] = score;
   window.localStorage.setItem('h'+hole, score);
   $(".h"+hole).html(score);// Find hole score element even more simply?
-  console.log("set hole " + hole + " score to " + score);  
+  //console.log("set hole " + hole + " score to " + score);  
   
 }
 
@@ -110,8 +115,6 @@ function addStroke(hole) {
   setHoleScore(hole,strokes);
   updateTotalScore();
   
-  
-   
 }
 
 // TODO: Add a removeStroke() function...
@@ -119,13 +122,35 @@ function addStroke(hole) {
 
 // On click/tap of any row...
 
-$( ".hole-row" ).click(function() {
+$(".hole.row").click(function() {
   
-  var editingHole = $(this).attr("id");
-
-  //updateCoursePosition(editingHole);  
-  addStroke(editingHole);
+  // WHY is this still applying even after the "unlocked" class is removed from the DOM element?
+  // I don't like this workaround, but I don't seem to have much choice...
+  // ALTHOUGH: This gives us the ability to detect presses on locked rows and potentially act on them; is it better to do that all in one .click function, or have a separate jQuery selector for actions on locked elements?
   
+  // Get the number of the edited hole...
+  var clickedHole = $(this).attr("id");
+  
+  // If the hole is unlocked, update the scorecard
+  if ( $(this).hasClass("unlocked") ) {
+    addStroke(clickedHole);
+    updateCoursePosition(clickedHole);
+  }
+  
+  // If the user taps the same hole twice, unlock it.
+  // TODO: Update this for hammer.js press-and-hold function
+  else if (clickedHole == lastClicked) {
+    console.log("Unlocking Hole " + clickedHole);
+    $(this).addClass("unlocked");
+  }
+  
+  else {  // Conditional that will handle all clicks of locked holes?
+    console.log("Double tap a hole to unlock it.");
+    // TODO: Do we want to do anything if the user clicks a locked hole?
+    // (How would we indicate to them that they should "Hold to unlock"? A full-screen overlay?)
+  }
+  
+  lastClicked = clickedHole;
   
 });
 
@@ -134,15 +159,54 @@ $( ".hole-row" ).click(function() {
 
 function updateCoursePosition(hole) {
   
-    // estCoursePos is updated, but only ever increases
-  if ( editingHole >= estCoursePos ) {
-    estCoursePos = parseInt(editingHole) + 1;
-    console.log("New estCoursePose="+estCoursePos);
-  }
+  // Estimate Position is updated if the hole under editing is at or past where we think we are...
+  if ( hole >= estCoursePos ) {
+    estCoursePos = parseInt(hole) + 1;    // Not sure why this line/function is interpreting hole as a text variable; seems to be working fine everywhere else...
+    console.log("New estCoursePos="+estCoursePos);
+    
+    // Update position window edges
+    trailingEdge = estCoursePos - editWindowTrail;
+    leadingEdge = estCoursePos + editWindowLead;
+    
+    // TRAILING EDGE updates
+      // TODO: Find a more elegant way to do this; this is pretty brute-force...
+    for ( var i = 1; i < trailingEdge; i++) {
+      
+      if (scores[i] > 0) {
+        $(".h"+i+"-row").removeClass("unlocked");
+        console.log("Locking hole "+ i);        
+      }
+      else { // Hole has been skipped...
+        // TODO: Highlighting skipped rows 
+        $(".h"+i+"-row").addClass("skipped");       
+      }
+      
 
-  // Updating estimated course position
-  if(editingHole >= (estCoursePos+posWindowWidth)) {
+      
+    }
+    
+    
+    
+    // UNLOCK LEADING EDGE
+    // TODO: For now, we're just starting with everything unlocked, so there's no action to take here...
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   }
+  
+
+  
+  
+  
     
 }
     
@@ -185,198 +249,3 @@ $(".header").click(function() {
   console.log("localStorage cleared");
   
 });
-
-
-
-/*
-
-
-
-
-
-// DOCUMENT READY
-$( document ).ready(function() {
-  console.log( "yoyoyo" );
-
-  var now = new Date();
-  nowSecs = now.getTime()/1000;
-  console.log("Current time is: " + nowSecs +" (in epoch-seconds)");
-  
-  // Check if this is a new game
-  if ( isNewGame(nowSecs) ) {
-    console.log("Let the games begin!");
-    localStorage.setItem('prevGameStart',nowSecs);
-    
-    setTotalScore(0);
-    
-    
-  }
-  
-  else {
-    loadScoresFromStorage();
-  }
-
-  
-  
-  
-  
-  
-
-});
-
-
-// NEW GAME DETECTION
-// For now, simple timestamp comparison
-// TODO: Default state should be true? Only false IFF it detects valid previous scores...
-
-function isNewGame(nowSecs) {
-  
-  var prevGameStart = window.localStorage.getItem('prevGameStart');
-  console.log("Last game started at: " + prevGameStart);
-  var timeSince = nowSecs - prevGameStart; // calculate the time since we last started a game on this device (in seconds)
-  var timeoutInSecs = (localStorageTimeout*60*60);
-  
-  console.log("Time since last game start=" + timeSince + " (seconds)");
-  
-  if( timeSince < timeoutInSecs ) {
-    return false;
-  }
-  
-  else {
-    window.localStorage.clear();
-    console.log("localStorage cleared");
-      
-    return true;    
-  }
-}
-
-
-
-
-
-// Loading existing scores...
-
-function loadScoresFromStorage() {
-  
-  console.log ("Loading scores from localStorage...");
-  
-
-  // Load and update all hole scores
-  var hole;
-    
-  for (hole = 1; hole <= 18; hole++) {
-    if( score = window.localStorage.getItem('h'+hole) ) {
-      console.log("Stored score for Hole "+hole+" = " + score);
-    }
-    else {
-      score = 0; 
-    }
-    setHoleScore(hole,score);
-    
-  }
-  
-  // Load and update on-screen total score
-  var totalScore = window.localStorage.getItem('totalScore',totalScore);
-  $(".ts-number").html(totalScore);
-  
-  // TODO: This reload seems to be failing somehow; it's loading total score numbers lower than the sum of all the hole scores; better to just sum them up as we load them in and set that as the total score value here?
-  
-  
-  
-}
-
-
-
-// SCORE TRACKING
-// On click/tap of any row...
-
-$( ".hole-row" ).click(function() {
-  
-  // Which hole are we editing with this click?
-  var editingHole;
-  editingHole = $(this).attr("id");
-  
-  // -----------------------
-  // COURSE POSITION UPDATES
-  
-  // estCoursePos is updated, but only ever increases
-  if ( editingHole >= estCoursePos ) {
-    estCoursePos = parseInt(editingHole) + 1;
-    console.log("New estCoursePose="+estCoursePos);
-  }
-
-  // Updating estimated course position
-  if(editingHole >= (estCoursePos+posWindowWidth)) {
-    
-    
-  }
-  
-  // ----------------
-  // UPDATE THE SCORE  
-  
-  holeScore = $(".h"+editingHole).html(); // get the hole's current score value
-
-  // IFF Score=6  
-  if(holeScore==6) {
-    console.log("Score cannot exceed 6.");
-    holeScore=1;
-    totalScore = totalScore - 5;
-  }
-  
-  // Score<6
-  else {
-    holeScore++;
-    totalScore++;    
-  }
-  
-  
-  // Update score fields
-  console.log("Update: Hole=" + editingHole + " // Score=" + holeScore);
-  setHoleScore(editingHole, holeScore);
-  setTotalScore(totalScore);
-  
-  
-  
-  
-  
-});
-
-
-// SET HOLE SCORE
-// Combined update of on-screen, displayed score, and localStore value
-function setHoleScore(hole, strokes) {
-  console.log("setting hole " + hole + " score to " + strokes);
-  $(".h"+hole).html(strokes);// Find hole score element even more simply?
-  window.localStorage.setItem('h'+hole, strokes);
-  
-}
-
-
-// SET TOTAL SCORE
-// Combined update of on-screen, displayed score, and localStore value
-function setTotalScore(strokes) {
-  $(".ts-number").html(strokes);
-  window.localStorage.setItem('totalScore', strokes);
-}
-
-
-
-
-
-
-var hammertime = new Hammer(myElement, myOptions);
-hammertime.on('pan', function(ev) {
-	console.log(ev);
-});
-
-
-
-
-// Try to prevent reload
-// NB: Appears to have no effect on mobile browsers
-/* // NOT USING DURING DEV B/C IT SLOWS ME DOWN — McB
-window.onbeforeunload=function() { 
-  alert('Are you sure you want to leave?');
-  return 'Please save your scores'
-}
-*/
