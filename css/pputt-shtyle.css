@@ -10,7 +10,7 @@ v1.1
 }
 
 body {
-  font-size: 10px;
+  font-size: 30px;
   background-color: #E6E7E8;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -77,21 +77,15 @@ body {
   background-color: #FF8888;
   color: white;
 }
-
-.hole-name-cont {
+.scorecard .row .hole-name {
+  font-size: 3em;
+  line-height: 1em;
   float: left;
 }
-.hole-name-cont .hole-name {
+.scorecard .row .hole-score {
   font-size: 3em;
   line-height: 1em;
-}
-
-.hole-score-cont {
   float: right;
-}
-.hole-score-cont .hole-score {
-  font-size: 3em;
-  line-height: 1em;
 }
 
 /*# sourceMappingURL=pputt-shtyle.css.map */

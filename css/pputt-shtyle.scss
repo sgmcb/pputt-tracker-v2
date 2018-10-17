@@ -30,7 +30,7 @@ $header-height: 8em;
 }
 
 body {
-    font-size: 10px;
+    font-size: 30px;
     background-color: $dk-gray;
     
     // Make all the text on this page un-selectable
@@ -103,47 +103,42 @@ body {
 
 
   .row {
-      display:block;
-      height: 5em;
-  
-      padding: 1em;      
-      
-      &.even {
-        background-color: $lt-gray;
-      }
+    display:block;
+    height: 5em;
 
-      // This styling is kinda backwards, but until I can read the jquery docs on NOT-class selectors, this is how it's done :-(
-      &.unlocked {
-        color: $active-text;
-      }
-      
-      color: $inactive-text;
-      
-      &.skipped {
-        background-color:$lt-red;
-        color: white;
-      }
+    padding: 1em;      
+    
+    &.even {
+      background-color: $lt-gray;
+    }
+
+    // This styling is kinda backwards, but until I can read the jquery docs on NOT-class selectors, this is how it's done :-(
+    &.unlocked {
+      color: $active-text;
+    }
+    
+    color: $inactive-text;
+    
+    &.skipped {
+      background-color:$lt-red;
+      color: white;
+    }
+
+    .hole-name {
+      font-size: 3em;
+      line-height:1em;
+      float:left;
+    }    
+        
+    
+    
+    .hole-score {
+      font-size: 3em;
+      line-height:1em;
+      float: right;
+    }   
   }
 }
 
 
-.hole-name-cont {
-    float:left;
 
-    
-    
-  .hole-name {
-    font-size: 3em;
-    line-height:1em;
-  }    
-    
-}
-
-.hole-score-cont {
-    float: right;
-    
-  .hole-score {
-    font-size: 3em;
-    line-height:1em;
-  }   
-}

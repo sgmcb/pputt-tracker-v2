@@ -174,6 +174,7 @@ function updateCoursePosition(hole) {
       
       if (scores[i] > 0) {
         $(".h"+i+"-row").removeClass("unlocked");
+        $(".h"+i+"-row").removeClass("skipped");
         console.log("Locking hole "+ i);        
       }
       else { // Hole has been skipped...
