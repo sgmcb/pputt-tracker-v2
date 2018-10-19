@@ -6,16 +6,14 @@ v1.1
 
 */
 * {
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 body {
-  font-size: 12px;
+  font-size: 10px;
   background-color: #E6E7E8;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
-}
+  -ms-user-select: none; }
 
 .header {
   position: fixed;
@@ -26,66 +24,52 @@ body {
   color: white;
   box-shadow: 0px 0px 10px 2px #888888;
   /* Trapezoid top clip
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    0 calc(100% - 5vw)
-  );
-  */
-}
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      0 calc(100% - 5vw)
+    );
+    */ }
 
 .logo {
   display: block;
   float: left;
   height: 6em;
-  margin-top: -0.15em;
-}
+  margin-top: -0.15em; }
 
 .total-score-cont {
-  float: right;
-}
-.total-score-cont .total {
-  font-size: 4em;
-  display: block;
-  text-align: right;
-  line-height: 1em;
-}
-.total-score-cont .ts-text {
-  font-size: 1.5em;
-  float: right;
-  text-align: right;
-  line-height: 1em;
-}
+  float: right; }
+  .total-score-cont .total {
+    font-size: 4em;
+    display: block;
+    text-align: right;
+    line-height: 1em; }
+  .total-score-cont .ts-text {
+    font-size: 1.5em;
+    float: right;
+    text-align: right;
+    line-height: 1em; }
 
 .scorecard {
-  padding-top: 8em;
-}
-.scorecard .row {
-  display: block;
-  height: 5em;
-  padding: 1em;
-  color: #646464;
-}
-.scorecard .row.even {
-  background-color: #F1F2F2;
-}
-.scorecard .row.unlocked {
-  color: black;
-}
-.scorecard .row.skipped {
-  background-color: #FF8888;
-  color: white;
-}
-
-.scorecard .row .hole-name {
-  font-size: 3em;
-  line-height: 1em;
-  float: left;
-}
-.scorecard .row .hole-score {
-  font-size: 3em;
-  line-height: 1em;
-  float: right;
-}
-
+  padding-top: 8em; }
+  .scorecard .row {
+    display: block;
+    height: 5em;
+    padding: 1em;
+    color: #646464; }
+    .scorecard .row.even {
+      background-color: #F1F2F2; }
+    .scorecard .row.unlocked {
+      color: black; }
+    .scorecard .row.skipped {
+      background-color: #FF8888;
+      color: white; }
+    .scorecard .row .hole-name {
+      font-size: 3em;
+      line-height: 1em;
+      float: left; }
+    .scorecard .row .hole-score {
+      font-size: 3em;
+      line-height: 1em;
+      float: right; }
