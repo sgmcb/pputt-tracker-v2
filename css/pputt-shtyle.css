@@ -57,11 +57,15 @@ body {
     display: block;
     height: 5em;
     padding: 1em;
-    color: #646464; }
+    color: black; }
     .scorecard .row.even {
       background-color: #F1F2F2; }
-    .scorecard .row.unlocked {
-      color: black; }
+    .scorecard .row.locked {
+      color: #646464;
+      font-weight: 300;
+      font-size: 1em;
+      padding-left: 1em;
+      padding-right: 1em; }
     .scorecard .row.skipped {
       background-color: #FF8888;
       color: white; }
@@ -69,7 +73,7 @@ body {
       font-size: 3em;
       line-height: 1em;
       float: left; }
-    .scorecard .row .hole-score {
+    .scorecard .row .score {
       font-size: 3em;
       line-height: 1em;
       float: right; }

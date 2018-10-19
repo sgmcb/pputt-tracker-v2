@@ -86,7 +86,7 @@ function setHoleScore(hole, score) {
 
   scores[hole] = score;
   window.localStorage.setItem('h'+hole, score);
-  $(".h"+hole).html(score);// Find hole score element even more simply?
+  $(".h"+hole+".score").html(score);// Find hole score element even more simply?
   //console.log("set hole " + hole + " score to " + score);  
   
 }
@@ -117,7 +117,35 @@ function addStroke(hole) {
   
 }
 
-// TODO: Add a removeStroke() function...
+// -----------------
+// WATCHER FUNCTIONS
+// These are the functions that actually tie events to actions
+
+// HEADER PRESS-AND-HOLD
+// TODO: Make this open up a menu
+$(".header").hammer().on("press", function(ev) {
+  console.log("Press-and-hold on header — TODO: Open menu");    
+      
+  // DEBUG ONLY: Clear Local Storage on Header Click    
+  window.localStorage.clear();
+  console.log("localStorage cleared");
+});
+
+
+// On leftswipe of any row...
+
+$("#1").hammer().on("press", function(ev) {
+  
+  console.log("hammerJS:" + ev);
+  
+  
+  
+    //callback
+});
+
+
+
+
 
 
 // On click/tap of any row...
@@ -132,7 +160,7 @@ $(".hole.row").click(function() {
   var clickedHole = $(this).attr("id");
   
   // If the hole is unlocked, update the scorecard
-  if ( $(this).hasClass("unlocked") ) {
+  if ( !($(this).hasClass("locked")) ) {              // Not sure why $(this).not("locked") isn't working here...
     addStroke(clickedHole);
     updateCoursePosition(clickedHole);
   }
@@ -141,7 +169,7 @@ $(".hole.row").click(function() {
   // TODO: Update this for hammer.js press-and-hold function
   else if (clickedHole == lastClicked) {
     console.log("Unlocking Hole " + clickedHole);
-    $(this).addClass("unlocked");
+    $(this).removeClass("locked");
   }
   
   else {  // Conditional that will handle all clicks of locked holes?
@@ -155,6 +183,12 @@ $(".hole.row").click(function() {
 });
 
 
+
+
+
+
+
+// --------------------------
 // ESTIMATING COURSE POSITION
 
 function updateCoursePosition(hole) {
@@ -173,9 +207,9 @@ function updateCoursePosition(hole) {
     for ( var i = 1; i < trailingEdge; i++) {
       
       if (scores[i] > 0) {
-        $(".h"+i+"-row").removeClass("unlocked");
-        $(".h"+i+"-row").removeClass("skipped");
-        console.log("Locking hole "+ i);        
+        $(".h"+i+".row").addClass("locked");
+        $(".h"+i+".row").removeClass("skipped");
+        //console.log("Locking hole "+ i);        
       }
       else { // Hole has been skipped...
         // TODO: Highlighting skipped rows 
@@ -234,19 +268,6 @@ $( document ).ready(function() {
     clearStoredScores();
     window.localStorage.setItem('prevGameStart',nowSecs);
   }
-
-
-});
-
-
-
-
-
-// DEBUG ONLY: Clear Local Storage on Header Click
-
-
-$(".header").click(function() {
-  window.localStorage.clear();
-  console.log("localStorage cleared");
   
 });
+

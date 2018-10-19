@@ -20,9 +20,10 @@ $inactive-text: rgb(100,100,100);
 // VARIABLE E
 $header-height: 8em;
 
-
-
-//test
+$row-height: 5em;
+$row-padding: 1em;
+$locked-row-font-C: 1;    // The ratio of how much we want to shrink the text on locked rows. (1=none, 0.5=half=size, etc)
+$locked-row-padding: $row-padding / $locked-row-font-C; 
 
 
 * {
@@ -37,6 +38,7 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;        
+    
 }
 
 
@@ -104,20 +106,27 @@ body {
 
   .row {
     display:block;
-    height: 5em;
+    height: $row-height;
 
-    padding: 1em;      
+    padding: $row-padding;      
+    
+    color: $active-text;
     
     &.even {
       background-color: $lt-gray;
     }
 
-    // This styling is kinda backwards, but until I can read the jquery docs on NOT-class selectors, this is how it's done :-(
-    &.unlocked {
-      color: $active-text;
+    
+    &.locked {
+      color: $inactive-text;
+      font-weight:300;  
+      font-size: $locked-row-font-C * 1em;
+      
+      padding-left: $locked-row-padding;
+      padding-right: $locked-row-padding;
+      
     }
     
-    color: $inactive-text;
     
     &.skipped {
       background-color:$lt-red;
@@ -130,13 +139,12 @@ body {
       float:left;
     }    
         
-    
-    
-    .hole-score {
+    .score {
       font-size: 3em;
       line-height:1em;
       float: right;
-    }   
+    }
+    
   }
 }
 
