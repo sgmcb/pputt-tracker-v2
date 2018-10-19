@@ -19,7 +19,14 @@ var totalScore = 0;
 var lastClicked = 0;    // A variable to track the last hole that the user clicked
 
 
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+//// DEBUG MODE FLAG                                ///////
 
+var debug = true;
+
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 // NEW GAME DETECTION
 function isNewGame(currentTime) {
@@ -100,16 +107,12 @@ function addStroke(hole) {
 
   var strokes = scores[hole];
   
-  // TODO: Remove this when we start using a "subtractStroke" function
-  // Conditionals to loop score from 6 to 1
-  if (strokes == 6) {
-    strokes = 1;
-    totalScore -= 5;
-  }
-  
-  else {
+  if (strokes < 6) {
     strokes++;
     totalScore++;
+  }
+  else {
+    console.log("Score is maxed out.");
   }
   
   setHoleScore(hole,strokes);
@@ -117,40 +120,82 @@ function addStroke(hole) {
   
 }
 
+function subtractStroke(hole) {
+
+  var strokes = scores[hole];
+  
+  if (strokes > 0) {    // DECISION: Should you be able to re-zero the score?
+    strokes--;
+    totalScore--;
+  }
+  
+  
+  setHoleScore(hole,strokes);
+  updateTotalScore();
+  
+}
+
+
+
+
 // -----------------
 // WATCHER FUNCTIONS
 // These are the functions that actually tie events to actions
 
-// HEADER PRESS-AND-HOLD
+// Header Press-and-Hold
 // TODO: Make this open up a menu
 $(".header").hammer().on("press", function(ev) {
   console.log("Press-and-hold on header — TODO: Open menu");    
       
-  // DEBUG ONLY: Clear Local Storage on Header Click    
-  window.localStorage.clear();
-  console.log("localStorage cleared");
+  // DEBUG ONLY: Clear Local Storage on Header Click 
+  if(debug) {
+    window.localStorage.clear();
+    console.log("localStorage cleared");
+    location.reload();    
+  }   
+
 });
 
 
 // On leftswipe of any row...
 
-$("#1").hammer().on("press", function(ev) {
+$(".hole.row").hammer().on("swipeleft", function(ev) {
   
-  console.log("hammerJS:" + ev);
+  var clickedHole = $(this).attr("id");
   
+  if( !($(this).hasClass("locked")) ) {
+    console.log("subtract stroke");
+    subtractStroke(clickedHole);    
+  }
   
-  
-    //callback
 });
 
 
+// Unlocking rows with a press-and-hold
+$(".row.hole").hammer().on("press", function(ev) {
+  var clickedHole = $(this).attr("id");
+  
+  $(this).removeClass("locked");
+  console.log("Unlock hole "+clickedHole);
+  
+  // Relock this row after 10 seconds
+  setTimeout(function(){ 
+    console.log("Relock hole "+clickedHole);
+    $(".row.hole.h"+clickedHole).addClass("locked");
+  },5000);  // Define the timeout in milliseconds
+  
+  
+  
+});
+
+  
 
 
 
 
 // On click/tap of any row...
 
-$(".hole.row").click(function() {
+$(".row.hole").hammer().on("tap", function(ev) {
   
   // WHY is this still applying even after the "unlocked" class is removed from the DOM element?
   // I don't like this workaround, but I don't seem to have much choice...
@@ -209,7 +254,7 @@ function updateCoursePosition(hole) {
       if (scores[i] > 0) {
         $(".h"+i+".row").addClass("locked");
         $(".h"+i+".row").removeClass("skipped");
-        //console.log("Locking hole "+ i);        
+        console.log("Locking hole "+ i);        
       }
       else { // Hole has been skipped...
         // TODO: Highlighting skipped rows 
